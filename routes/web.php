@@ -101,7 +101,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/certificate-type', [CertificateTypeController::class, 'index'])->name('certificate-type');
     Route::resource('certificate-types', CertificateTypeController::class);
     Route::post('/remove-certificate-type', [CertificateTypeController::class, 'destroy'])->name('remove');
-
 });
 
 
