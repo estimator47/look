@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CatalogController;
+use App\Http\Controllers\Admin\CertificateFileController;
 use App\Http\Controllers\Admin\CertificateTypeController;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\TypeController;
@@ -101,6 +102,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/certificate-type', [CertificateTypeController::class, 'index'])->name('certificate-type');
     Route::resource('certificate-types', CertificateTypeController::class);
     Route::post('/remove-certificate-type', [CertificateTypeController::class, 'destroy'])->name('remove');
+
+    Route::get('/certificate-file', [CertificateFileController::class, 'index'])->name('certificate-file');
+    Route::resource('certificate-files', CertificateFileController::class);
+    Route::post('/remove-certificate-file', [CertificateFileController::class, 'destroy'])->name('remove');
 });
 
 
