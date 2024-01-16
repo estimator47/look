@@ -68,6 +68,8 @@ Route::get('/login', [FrontController::class, 'error'])->name('login');
 Route::get('/register', [FrontController::class, 'error'])->name('register');
 Route::get('/lam/under_under', [FrontController::class, 'login'])->name('lam/under_under');
 
+Route::get('/certificate/{type_id}', [FrontController::class, 'getCertificates']);
+
 
 /*
 |--------------------------------------------------------------------------

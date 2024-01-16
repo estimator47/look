@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Models\Blog;
 use App\Models\Catalog;
+use App\Models\CertificateFile;
 use App\Models\Material;
 use App\Models\Message;
 use App\Repositories\FrontRepository;
@@ -26,14 +27,16 @@ class FrontController extends Controller
 
 
     /** home page.  */
-    public function index() {
+    public function index()
+    {
         return view('front.index');
-   }
+    }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function product() {
+    public function product()
+    {
         return view('front.product');
     }
 
@@ -42,7 +45,8 @@ class FrontController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
-    public function products($material, Request $request) {
+    public function products($material, Request $request)
+    {
 
         $material = Material::where('material_en', $material)->first();
         $products = $this->repository->funcProducts($material, $request);
@@ -63,7 +67,8 @@ class FrontController extends Controller
      * @param Catalog $catalog
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function singleProduct($fabric, $title, $id, Catalog $catalog) {
+    public function singleProduct($fabric, $title, $id, Catalog $catalog)
+    {
 
         $product = $catalog->find($id);
 
@@ -78,30 +83,38 @@ class FrontController extends Controller
     }
 
     /** cotton fabric page.  */
-    public function cotton() {
+    public function cotton()
+    {
         return view('front.fabric-cotton');
     }
+
     /** silk fabric page.  */
-    public function silk() {
+    public function silk()
+    {
         return view('front.fabric-silk');
     }
+
     /** lace fabric page.  */
-    public function lace() {
+    public function lace()
+    {
         return view('front.fabric-lace');
     }
+
     /** other fabric page.  */
-    public function other() {
+    public function other()
+    {
         return view('front.fabric-other');
     }
 
     /** blog page.  */
-    public function blog(Request $request) {
+    public function blog(Request $request)
+    {
 
         $blogs = $this->repository->blog($request);
 
         if ($request->ajax()) {
             return response()->json([
-                'table' => view( "front.blog-standard", ['blogs' => $blogs])->render(),
+                'table' => view("front.blog-standard", ['blogs' => $blogs])->render(),
             ]);
         }
 
@@ -114,7 +127,7 @@ class FrontController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'table' => view( "front.blog-standard", ['blogs' => $blogs])->render(),
+                'table' => view("front.blog-standard", ['blogs' => $blogs])->render(),
             ]);
         }
 
@@ -123,24 +136,29 @@ class FrontController extends Controller
     }
 
     /** single blog page.  */
-    public function singleBlog($id, Blog $blog) {
+    public function singleBlog($id, Blog $blog)
+    {
 
         $news = Blog::query()->limit(3)
-                ->orderBy('click', 'desc')->get();
+            ->orderBy('click', 'desc')->get();
 
         $blog = $blog->find($id);
         $blog->click = $blog->click + 1;
         $blog->save();
 
         // dd($blog);
-        return view('front.single-blog', compact('news'), compact('blog') );
+        return view('front.single-blog', compact('news'), compact('blog'));
     }
+
     /** about -us page.  */
-    public function about() {
+    public function about()
+    {
         return view('front.about-us');
     }
+
     /** contact page.  */
-    public function contact() {
+    public function contact()
+    {
         return view('front.contact-us');
     }
 
@@ -151,43 +169,34 @@ class FrontController extends Controller
      */
     public function sendingMessage(MessageRequest $request)
     {
-            $lang = App::getLocale();
-            if ($lang == 'en') $text = "Your message has been sent successfully.";
-            else $text = 'Ваше сообщение отправлено успешно.';
+        $lang = App::getLocale();
+        if ($lang == 'en') $text = "Your message has been sent successfully.";
+        else $text = 'Ваше сообщение отправлено успешно.';
 
-            Message::create($request->all());
+        Message::create($request->all());
 
         return redirect(route('contact'))->with('contact-ok', $text);
     }
 
     /** 404 error page.  */
-    public function error() {
+    public function error()
+    {
         return view('errors.404');
     }
 
     /** login page.  */
-    public function login() {
+    public function login()
+    {
         return view('auth.login');
     }
 
-    public function certificateTypes() {
-        $types = CertificateType::query()->get();
-        
+    public function getCertificates(Request $request, $type_id)
+    {
+        $certificates = CertificateFile::query()->where('certificate_type_id', $type_id)->orderByDesc('id')->get();
+
         if ($request->ajax()) {
             return response()->json([
-                'table' => view( "front.certificate-type-standard", ['types' => $types])->render(),
-            ]);
-        }
-
-        return view('front.certificate-type', compact('types'));
-    }
-
-      public function getCertificates($id) {
-        $certificates = CertificateFile::query()->where('certificate_type_id', $id)->orderByDesc('id')->get();
-        
-        if ($request->ajax()) {
-            return response()->json([
-                'table' => view( "front.certificate-standard", ['certificate' => $certificates])->render(),
+                'table' => view("front.certificate", ['certificate' => $certificates])->render(),
             ]);
         }
 

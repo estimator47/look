@@ -222,35 +222,20 @@
                 <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="single-footer informaton-area">
                         <div class="footer-title uppercase">
-{{--                            <h5>{{ __('message.information') }}</h5>--}}
-                            <h5>Certificates</h5>
+                            <h5>{{ __('message.certificate') }}</h5>
                         </div>
                         <div class="informatoin">
 
-
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="skill-img">
-                                        <img src="{{ asset('images/certificate/serf1.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="skill-img">
-                                        <img src="{{ asset('images/certificate/serf2.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="skill-img">
-                                        <img src="{{ asset('images/certificate/serf3.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="skill-img">
-                                        <img src="{{ asset('images/certificate/serf4.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
+                            @php $types = \App\Models\CertificateType::query()->where('status', 'active')->get();@endphp
+                            <ul style="padding: 0px;">
+                                @foreach($types as $type)
+                                    <li>
+                                        <a href="{{url('/certificate/' . $type->id)}}">
+                                            {{ $type->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
 
                         </div>
                     </div>
