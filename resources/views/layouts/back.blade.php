@@ -139,11 +139,18 @@
                         <li class="nav-item">
                             <a href="{{route('certificate-type')}}" class="nav-link nav-toggle">
                                 <i class="fa fa-arrow-right"></i>
-                                <span class="title">Type</span>
+                                <span class="title">Тип сертификата</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{route('certificate-file')}}" class="nav-link nav-toggle">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="title">СЕРТИФИКАТЫ</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
 
                     </ul>
                 </div>

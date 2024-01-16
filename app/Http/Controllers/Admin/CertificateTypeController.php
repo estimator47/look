@@ -30,8 +30,13 @@ class CertificateTypeController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required'
+        ]);
         $type = new CertificateType();
         $type->name = $request->name;
+        $type->status = $request->status;
         $type->save();
 
         return redirect(route('certificate-type'))->with('type-ok', "Тип сертификата добавлен..");
@@ -48,17 +53,18 @@ class CertificateTypeController extends Controller
     public function update(Request $request, CertificateType $certificate_type)
     {
         $certificate_type->name = $request->name;
+        $certificate_type->status = $request->status;
         $certificate_type->save();
 
         return redirect(route('certificate-type'))->with('type-ok', 'Тип сертификата было изменено..');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $certificate_type = CertificateType::query()->where('id', $request->id)->first();
+        $certificate_type = CertificateType::query()->where('id', $id)->first();
         $certificate_type->delete();
 
-        return $this->index($request);
+        return $this->index($certificate_type);
     }
 
 }

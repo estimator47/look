@@ -27,6 +27,7 @@
                             {!! $errors->first('image', '<small class="help-block">:message</small>') !!}
                         </div>
                     </div>
+
                     @yield('form-open')
                     <input type="hidden" id="image" name="image"  value="@if(isset($blog)){{$blog->image}}@elseif(old('image')){{old('image')}}@endif" />
                     <div class="card-body row">

@@ -13,10 +13,10 @@
                 @slot('type')
                     success
                     text-dark
-            @endslot
-            {!! session('type-ok') !!}
-        @endcomponent
-    @endif
+                @endslot
+                {!! session('type-ok') !!}
+            @endcomponent
+        @endif
         <!-- start Payment Details -->
         <div class="row">
             <div class="col-md-12 col-sm-12">
@@ -38,7 +38,8 @@
                                     <thead>
                                     <tr>
                                         <th>№</th>
-                                        <th>Название </th>
+                                        <th>Название</th>
+                                        <th>Статус </th>
                                     </tr>
                                     </thead>
                                     <tbody id="certificate-type-pannel">
@@ -58,28 +59,11 @@
 @endsection
 
 @section('js')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('public/js/mine.js') }}"></script>
     <script>
-        $(document).ready(function(){
-            $('.btn-tbl-delete').click(function(){
-                swal({
-                    title: "Вы уверены ?",
-                    text: "После удаления вы не сможете восстановить этот файл",
-                    icon: "warning",
-                    buttons: {
-                        confirm: "Да",
-                        cancel: "Нет",
-                    },
-                    dangerMode: true,
-                })
-                    .then((value) => {
-                        if (value) {
-                            swal(BaseRecord.destroyCertificateType($(this).attr('id')))
-                        } else  {
-                            swal.close();
-                        }
-                    });
+        $(document).ready(function () {
+            $('.btn-tbl-delete').click(function () {
+                BaseRecord.destroyCertificateType($(this).attr('id'));
                 return false;
             });
         });

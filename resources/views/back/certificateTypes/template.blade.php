@@ -29,6 +29,38 @@
                                 {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
                             </div>
                         </div>
+
+
+                        <div
+                            class="col-lg-6 p-t-20 mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height txt-full-width">
+                            <input class="mdl-textfield__input" type="text" id="list3" value="" readonly tabIndex="-1">
+                            <label for="list3" class="mdl-textfield__label">
+                                Материал
+                            </label>
+                            <select class="form-control" name="status" id="id">
+
+                                <option>выбирать Статус</option>
+
+                                <option value="active"
+                                @if(old('status') && old('status') == $type->status)
+                                    {{'selected'}}
+                                    @elseif(isset($type) && $type->status == 'active')
+                                    {{'selected'}}
+                                    @endif
+                                > active
+                                </option>
+                                <option value="inactive"
+                                @if(old('status') && old('status') == $type->status)
+                                    {{'selected'}}
+                                    @elseif(isset($type) && $type->status == 'inactive')
+                                    {{'selected'}}
+                                    @endif
+                                >inactive
+                                </option>
+
+                            </select>
+                        </div>
+
                         <div class="col-lg-12 p-t-20 text-center">
                             <button type="submit"
                                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect m-b-10 m-r-20 btn-pink">

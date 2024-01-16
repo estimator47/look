@@ -101,39 +101,10 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/certificate-type', [CertificateTypeController::class, 'index'])->name('certificate-type');
     Route::resource('certificate-types', CertificateTypeController::class);
-    Route::post('/remove-certificate-type', [CertificateTypeController::class, 'destroy'])->name('remove');
+    Route::delete('/remove-certificate-type/{id}', [CertificateTypeController::class, 'destroy']);
 
     Route::get('/certificate-file', [CertificateFileController::class, 'index'])->name('certificate-file');
     Route::resource('certificate-files', CertificateFileController::class);
-    Route::post('/remove-certificate-file', [CertificateFileController::class, 'destroy'])->name('remove');
-     Route::post('/certificate/create', [CatalogController::class, 'uploadFile'])->name('certificate-image');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Php artisan commands
-|--------------------------------------------------------------------------|
-*/
-Route::group(['prefix' => 'php'], function () {
-    Route::get('/config-clear', function () {
-        Artisan::call('config:clear');
-        return ('config cleared successfully');
-    });
-    Route::get('/config-cache', function () {
-        Artisan::call('config:cache');
-        return ('config cache successfully');
-    });
-    Route::get('/cache-clear', function () {
-        Artisan::call('cache:clear');
-        return ('cache cleared successfully');
-    });
-    Route::get('/view-clear', function () {
-        Artisan::call('view:clear');
-        return ('view cleared successfully');
-    });
-    Route::get('/view-clear', function () {
-        Artisan::call('optimize:clear');
-        return ('optimized successfully');
-    });
+    Route::post('/certificate-image/create', [CertificateFileController::class, 'uploadFile'])->name('certificate-image');
+    Route::post('/remove-certificate/{id}', [CertificateFileController::class, 'removeCertificate']);
 });
