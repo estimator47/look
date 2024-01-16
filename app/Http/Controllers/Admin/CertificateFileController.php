@@ -31,7 +31,7 @@ class CertificateFileController extends Controller
     }
 
 
-    public function productImage(Request $request)
+    public function uploadFile(Request $request)
     {
         $image = $request->file('file');
         $imageName = time() . '.' . $image->getClientOriginalName();
