@@ -106,6 +106,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/certificate-file', [CertificateFileController::class, 'index'])->name('certificate-file');
     Route::resource('certificate-files', CertificateFileController::class);
     Route::post('/remove-certificate-file', [CertificateFileController::class, 'destroy'])->name('remove');
+     Route::post('/certificate/create', [CatalogController::class, 'uploadFile'])->name('certificate-image');
 });
 
 
