@@ -170,4 +170,28 @@ class FrontController extends Controller
         return view('auth.login');
     }
 
+    public function certificateTypes() {
+        $types = CertificateType::query()->get();
+        
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view( "front.certificate-type-standard", ['types' => $types])->render(),
+            ]);
+        }
+
+        return view('front.certificate-type', compact('types'));
+    }
+
+      public function getCertificates($id) {
+        $certificates = CertificateFile::query()->where('certificate_type_id', $id)->orderByDesc('id')->get();
+        
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view( "front.certificate-standard", ['certificate' => $certificates])->render(),
+            ]);
+        }
+
+        return view('front.certificate', compact('certificates'));
+    }
+
 }
