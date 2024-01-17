@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\CertificateTypeController;
 use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Front\FrontController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
