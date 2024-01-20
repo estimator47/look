@@ -9,8 +9,7 @@
 @section('front')
 
     <!--breadcumb area start -->
-    <div class="breadcumb-area overlay pos-rltv"
-         style="background-image: url('/images/bg/breadcumb.jpg'); height: 200px;">
+    <div class="breadcumb-area overlay pos-rltv" style="background-image: url('/public/images/bg/breadcumb.jpg'); height: 200px;">
         <div class="bread-main">
             <div class="bred-hading text-center">
                 <h5>{{ __('message.certificate') }}</h5>

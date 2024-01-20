@@ -32,19 +32,13 @@ class FrontController extends Controller
         return view('front.index');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
+
     public function product()
     {
         return view('front.product');
     }
 
-    /**
-     * @param $material
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
-     */
+
     public function products($material, Request $request)
     {
 
@@ -60,13 +54,7 @@ class FrontController extends Controller
         return view('front.products', compact('products'), compact('material'));
     }
 
-    /**
-     * @param $fabric
-     * @param $title
-     * @param $id
-     * @param Catalog $catalog
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
+
     public function singleProduct($fabric, $title, $id, Catalog $catalog)
     {
 
@@ -76,8 +64,10 @@ class FrontController extends Controller
 
         $products = Catalog::where('material_id', $material->id)
             ->where('type_id', '!=', $product->type_id)
-            ->with('products')->with('colors')
-            ->LIMIT(4)->get();
+            ->with('products')
+            ->with('colors')
+            ->LIMIT(4)
+            ->get();
 
         return view('front.single-product', compact('product'), compact('products'));
     }
@@ -132,21 +122,22 @@ class FrontController extends Controller
         }
 
         //submit
-        return view('front.blog', compact('blog'));
+        return view('front.blog', compact('blogs'));
     }
 
     /** single blog page.  */
-    public function singleBlog($id, Blog $blog)
+    public function singleBlog($id)
     {
+        $news = Blog::query()
+            ->where('id', '!=', $id)
+            ->limit(3)
+            ->orderByDesc('id')
+            ->get();
 
-        $news = Blog::query()->limit(3)
-            ->orderBy('click', 'desc')->get();
-
-        $blog = $blog->find($id);
+        $blog = Blog::find($id);
         $blog->click = $blog->click + 1;
         $blog->save();
 
-        // dd($blog);
         return view('front.single-blog', compact('news'), compact('blog'));
     }
 
